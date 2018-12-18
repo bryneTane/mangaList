@@ -1,0 +1,30 @@
+body{
+    padding: 15px;
+}
+
+.image{
+    position: absolute;
+    right: 5px;
+}
+
+.mangaCheck{
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.header{
+    font-size: 40px;
+    font-family: sans-serif;
+    text-align: center;
+    color: grey;
+    height: 70px;
+    padding-top: 20px
+  }
+  
+  .footer{
+    font-family: sans-serif;
+    text-align: center;
+    color: grey;
+    height: 40px;
+    padding-top: 20px
+  }
