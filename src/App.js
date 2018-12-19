@@ -10,41 +10,21 @@ const tabs = [
   { title: 'Should Watch', sub: '2' },
 ];
 
-const TabElts = (props) => (
-  <div>
-    <Tabs tabs={tabs}
-      initialPage={0}
-      tabBarPosition="top"
-      renderTab={tab => <span className="title">{tab.title}</span>}
-    >
-      <div className="tabContent">
-        {props.mangaElts}
-        <Button className="arbutton" onClick={props.onClickA}> Add </Button>
-      </div>
-      <div className = "tabContent">
-        {props.selectedMangaElts}
-        <Button className="arbutton" onClick={props.onClickB}> Remove </Button>
-      </div>
-    </Tabs>
- 
-  </div>
-);
-
-
 
 class App extends Component {
 
   state = {
     isLoading: true,
-    mangas : [],
-    selectedMangas: [],
+    mangaElts: [],
+    selectedMangaElts: [],
   }
-
-  temp = [];
-  tempSelect = [];
 
   componentWillMount(){
     this.remote();
+  }
+
+  forceUpdate(){
+    this.setState({});
   }
   
   remote = async() => {
@@ -53,23 +33,25 @@ class App extends Component {
     data.forEach(element => {
       element.checked = false;
     });
-    this.setState({mangas: data});
-    console.log(data);
-    this.temp = this.state.mangas;
-    this.tempSelect = [];
-    console.log(this.temp, this.tempSelect);
+    const mangaElts = data.map( (item, index) => {
+        return <MangaItem data={item} key={index} onChange={() => {this.changeStatus(index, this.state.mangaElts)}} />;
+    });
+
+    const selectedMangaElts = [];
+    this.setState({mangaElts: mangaElts, selectedMangaElts: selectedMangaElts});
+    console.log(this.state.mangaElts, this.state.selectedMangaElts);
     await this.setState({isLoading: false});
     return data;
   }
 
   changeStatus(i, tab){
-    tab[i].checked = !tab[i].checked;
+    tab[i].props.data.checked = !tab[i].props.data.checked;
   }
-
+  
   organize(tab1, tab2, good){
     tab1.forEach(item => {
-      if(item.checked){
-        item.checked = false;
+      if(item.props.data.checked){
+        item.props.data.checked = false;
         tab2.push(item);
       }
     });
@@ -78,8 +60,9 @@ class App extends Component {
         tab1.splice(tab1.indexOf(item), 1);
       }
     });
-    good ? this.setState({mangas: tab1, selectedMangas: tab2}) : this.setState({mangas: tab2, selectedMangas: tab1});
+    good ? this.setState({mangaElts: tab1, selectedMangaElts: tab2}) : this.setState({mangaElts: tab2, selectedMangaElts: tab1});
   }
+  
 
   render() {
 
@@ -99,13 +82,8 @@ class App extends Component {
         );
     }
 
-    const mangaElts = this.state.mangas.map( (item, index) => {
-        return <MangaItem data={item} key={index} onChange={() => {this.changeStatus(index, this.temp)}} />;
-    });
-
-    const selectedMangaElts = this.state.selectedMangas.map( (item, index) => {
-        return <MangaItem data={item} key={index} onChange={() => {this.changeStatus(index, this.tempSelect)}} />;
-    });
+    console.log(this.state.mangaElts);
+    console.log(this.state.selectedMangaElts);
 
     return (
       <div>
@@ -113,7 +91,23 @@ class App extends Component {
           My Manga List
         </div>
         <div className="content">
-          <TabElts mangaElts={mangaElts} selectedMangaElts={selectedMangaElts} onClickA={() => this.organize(this.temp, this.tempSelect, true)} onClickB={() => this.organize(this.tempSelect, this.temp, false)} />
+          <div>
+            <Tabs tabs={tabs}
+              initialPage={0}
+              tabBarPosition="top"
+              renderTab={tab => <span className="title">{tab.title}</span>}
+            >
+              <div className="tabContent">
+                {this.state.mangaElts.map(item => {return item})}
+                <Button className="arbutton" onClick={() => this.organize(this.state.mangaElts, this.state.selectedMangaElts, true)}> Add </Button>
+              </div>
+              <div className = "tabContent">
+                {this.state.selectedMangaElts.map(item => {return item})}
+                <Button className="arbutton" onClick={() => this.organize(this.selectedMangaElts, this.state.mangaElts, false)}> Remove </Button>
+              </div>
+            </Tabs>
+        
+          </div>
         </div>
         <div className='footer'>
           Copyrigths &#169; Friedrich TANE 

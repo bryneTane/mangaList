@@ -38,11 +38,18 @@
     margin-bottom: 10px;
 }
 
-.modalContent{
-    overflow: hidden;
-}
 
 .img{
-    height: 350px;
+    height: 200px;
     margin-top: 50px;
+}
+
+.modal{
+    height: 200px;
+    text-align: center;
+    overflow: scroll;
+}
+
+.bimage{
+    height: 200px;
 }
