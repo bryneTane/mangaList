@@ -41,3 +41,8 @@
 .modalContent{
     overflow: hidden;
 }
+
+.img{
+    height: 350px;
+    margin-top: 50px;
+}
