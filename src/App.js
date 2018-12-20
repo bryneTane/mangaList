@@ -34,7 +34,7 @@ class App extends Component {
       element.checked = false;
     });
     const mangaElts = data.map( (item, index) => {
-        return <MangaItem data={item} key={index} onChange={() => {this.changeStatus(index, this.state.mangaElts)}} />;
+        return <MangaItem data={item} key={index} onChange={() => {this.changeStatus(item)}} />;
     });
 
     const selectedMangaElts = [];
@@ -44,8 +44,8 @@ class App extends Component {
     return data;
   }
 
-  changeStatus(i, tab){
-    tab[i].props.data.checked = !tab[i].props.data.checked;
+  changeStatus(item){
+    item.checked = !item.checked;
   }
   
   organize(tab1, tab2, good){
@@ -103,7 +103,7 @@ class App extends Component {
               </div>
               <div className = "tabContent">
                 {this.state.selectedMangaElts.map(item => {return item})}
-                <Button className="arbutton" onClick={() => this.organize(this.selectedMangaElts, this.state.mangaElts, false)}> Remove </Button>
+                <Button className="arbutton" onClick={() => this.organize(this.state.selectedMangaElts, this.state.mangaElts, false)}> Remove </Button>
               </div>
             </Tabs>
         
