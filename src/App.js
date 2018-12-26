@@ -22,10 +22,6 @@ class App extends Component {
   componentWillMount(){
     this.remote();
   }
-
-  forceUpdate(){
-    this.setState({});
-  }
   
   remote = async() => {
     const api_call = await fetch("https://gist.githubusercontent.com/aws1994/f583d54e5af8e56173492d3f60dd5ebf/raw/c7796ba51d5a0d37fc756cf0fd14e54434c547bc/anime.json");
@@ -48,7 +44,7 @@ class App extends Component {
     item.checked = !item.checked;
   }
   
-  organize(tab1, tab2, good){
+  organize = (tab1, tab2, good) => {
     tab1.forEach(item => {
       if(item.props.data.checked){
         item.props.data.checked = false;
