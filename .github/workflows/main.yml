@@ -30,6 +30,7 @@ jobs:
 
       - name: prepare application archive
         run: |
+          ls -al .
           cp ./.htaccess ./build/.htaccess
           zip -r mangalist.zip ./build/*
 
