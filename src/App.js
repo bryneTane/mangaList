@@ -36,7 +36,7 @@ class App extends Component {
     const selectedMangaElts = [];
     this.setState({mangaElts: mangaElts, selectedMangaElts: selectedMangaElts});
     console.log(this.state.mangaElts, this.state.selectedMangaElts);
-    await this.setState({isLoading: false});
+    this.setState({isLoading: false});
     return data;
   }
 

@@ -1,0 +1,26 @@
+name: Build and deploy on Hostme
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+
+    strategy:
+      matrix:
+        node-version: [12.18.1]
+
+    steps:
+
+      - name: npm install, build
+        run: |
+          npm install
+          npm run build
+
+      - name: prepare application archive
+        run: zip -r mangalist.zip ./*
+
+      - name: deploy app to hostme
+        run: |-
+          curl -X POST -H "Accept: application/json" -H "Authorization: Bearer 1|O6WmN2FD6nsIlvgEAXdSCJQiy71erK1vGNf1GMUU" -F 'file=@./mangalist.zip' https://hostme.space/api/github/mangalist2/deploy_on_push
