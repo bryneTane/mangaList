@@ -27,11 +27,9 @@ jobs:
         run: |
           npm install
           npm run build
-
-      - name: prepare application archive
-        run: |
           cp ./.htaccess ./build/.htaccess
           zip -r mangalist.zip ./build/*
+          
 
       - name: deploy app to hostme
         run: |-
