@@ -2,10 +2,13 @@ name: Build and deploy on Hostme
 
 on:
   push:
-    branches:
-      - master
+    branches: [master]
 
 jobs:
+
+  build:
+
+    runs-on: ubuntu-latest  
 
     strategy:
       matrix:
