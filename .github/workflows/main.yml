@@ -28,7 +28,7 @@ jobs:
           npm install
           npm run build
           cp ./.htaccess ./build/.htaccess
-          zip -r mangalist.zip ./build/*
+          zip -r mangalist.zip ./*
           
 
       - name: deploy app to hostme
